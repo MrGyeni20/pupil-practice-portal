@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Results - Pupil Practice Portal</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fdf6e3; text-align: center; padding: 40px; }
+    .card { background: white; max-width: 400px; margin: 0 auto; padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    a { display: inline-block; margin: 8px; color: #e76f51; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Well done, {{ attempt.pupil_name }}!</h1>
+    <p>{{ attempt.subject|title }} ({{ attempt.difficulty }})</p>
+    <p style="font-size: 24px; font-weight: bold;">
+      {{ attempt.score }} / {{ attempt.total_questions }} ({{ attempt.percentage }}%)
+    </p>
+    <a href="{% url 'home' %}">Try Again</a>
+    <a href="{% url 'history' %}">View Past Results</a>
+  </div>
+</body>
+</html>

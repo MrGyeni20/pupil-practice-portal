@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz - Pupil Practice Portal</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fdf6e3; text-align: center; padding: 40px; }
+    .card { background: white; max-width: 450px; margin: 0 auto 16px; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); text-align: left; }
+    button { margin-top: 20px; padding: 10px 20px; border: none; border-radius: 8px; background: #2a9d8f; color: white; font-size: 16px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Good luck, {{ pupil_name }}!</h1>
+  <form action="{% url 'results' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="pupil_name" value="{{ pupil_name }}">
+    <input type="hidden" name="subject" value="{{ subject }}">
+    <input type="hidden" name="difficulty" value="{{ difficulty }}">
+
+    {% for question in questions %}
+      <div class="card">
+        <p><strong>{{ forloop.counter }}. {{ question.text }}</strong></p>
+        {% for choice in question.choices %}
+          <label>
+            <input type="radio" name="q{{ forloop.parentloop.counter0 }}" value="{{ choice }}" required>
+            {{ choice }}
+          </label><br>
+        {% endfor %}
+      </div>
+    {% empty %}
+      <p>No questions found for that subject/difficulty.</p>
+    {% endfor %}
+
+    <button type="submit">Submit Answers</button>
+  </form>
+</body>
+</html>
